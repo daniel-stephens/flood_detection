@@ -2,8 +2,8 @@
 import cv2
 import numpy as np
 
-kernel1 = np.ones((1, 5), np.uint8)
-kernel2 = np.ones((2, 2), np.uint8)
+kernel1 = np.ones((1, 2), np.uint8)
+kernel2 = np.ones((2, 1), np.uint8)
 image = cv2.imread('.\\background\\image4091.jpg')
 
 img = cv2.erode(image, kernel1, iterations=2)
