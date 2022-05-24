@@ -2,3 +2,7 @@
 \total_frames
 \flood
 \roi
+\without_noise
+\averaged
+\background
+\blob
