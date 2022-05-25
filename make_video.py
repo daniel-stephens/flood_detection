@@ -23,7 +23,7 @@ def frames_to_video(frames_path, output_path):
     out.release()
 
 if __name__=="__main__":
-    frames_path = ".\\roi\\*.png"
-    output = ".\\videos\\roi_video.mp4"
+    frames_path = ".\\background\\*.jpg"
+    output = ".\\videos\\background.mp4"
 
     frames_to_video(frames_path, output)
