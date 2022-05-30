@@ -8,6 +8,9 @@ def create_connection(db_file):
     try:
         conn = sqlite3.connect(db_file)
         print(sqlite3.version)
+        c = conn.cursor()
+        c.execute(""" CREATE TABLE vid_pixils (id INTEGER PRIMARY KEY, frame_number int NOT NULL, num int NOT NULL) """)
+
     except Error as e:
         print(e)
     finally:
