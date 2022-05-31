@@ -27,7 +27,7 @@ while first<50000:
     name = ".\\averaged\\averaged{}.jpg".format(n)
     cv2.imwrite(name, cv2.cvtColor(avg_image, cv2.COLOR_BGR2GRAY))
     n+=1
-    first +=5
+    first +=1
 
     print("The average image {} is done".format(n))
 
