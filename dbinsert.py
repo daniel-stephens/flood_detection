@@ -17,8 +17,8 @@ for image in images:
     #Crop selected roi from raw image
     roi_cropped = img_raw[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
     num = np.sum(roi_cropped)
-    query = "INSERT INTO vid_pixils VALUES ({}, {})".format(str(n), num)
-    print(query)
+    query = "INSERT INTO vid_pixils (frame_number, pixils) VALUES( {}, {})".format(n, num)
+    
     # Insert a row of data
     cur.execute(query)
 

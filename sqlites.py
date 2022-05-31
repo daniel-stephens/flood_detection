@@ -9,7 +9,7 @@ def create_connection(db_file):
         conn = sqlite3.connect(db_file)
         print(sqlite3.version)
         c = conn.cursor()
-        c.execute(""" CREATE TABLE vid_pixils (id INTEGER PRIMARY KEY, frame_number int NOT NULL, num int NOT NULL) """)
+        c.execute(""" CREATE TABLE vid_pixils (id INTEGER PRIMARY KEY AUTOINCREMENT, frame_number INTEGER NOT NULL, pixils INTEGER NOT NULL) """)
 
     except Error as e:
         print(e)
