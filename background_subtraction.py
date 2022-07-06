@@ -6,7 +6,7 @@ import os
 
 images = sorted(glob.glob(f"{os.getcwd()}\\averaged\\*jpg"), key=len)
 initial_image = cv2.imread(images[0]).astype(np.float16)
-kernel1 = np.ones((1, 2), np.uint8)
+kernel1 = np.ones((1, 1), np.uint8)
 kernel2 = np.ones((1, 1), np.uint8)
 
 
@@ -16,7 +16,7 @@ n = 0
 for image in images:
     im = cv2.imread(image).astype(np.float16)
     diff = abs(initial_image - im)
-    diff = np.where(diff>100, 225, 0).astype(np.uint8)
+    diff = np.where(diff>85, 225, 0).astype(np.uint8)
     img = cv2.erode(diff, kernel1, iterations=2)
     img2 = cv2.dilate(img, kernel2, iterations=3)
 

@@ -3,6 +3,8 @@ import cv2
 import glob
 import numpy as np
 import sqlite3
+import time
+
 
 
 con = sqlite3.connect('pixils.db')
@@ -26,5 +28,7 @@ for image in images:
     # Save (commit) the changes
     con.commit()
     n+=1
+    time.sleep(0.01)
+
 
 con.close()

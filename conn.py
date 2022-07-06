@@ -3,11 +3,14 @@ from dash import Dash, html, dcc, Input, Output
 import plotly.express as px
 import pandas as pd
 import datetime
+import dash_bootstrap_components as dbc
 
 
-app = Dash(__name__)
+app = Dash(__name__,  external_stylesheets=[dbc.themes.BOOTSTRAP]
+)
 
 app.layout = html.Div(children=[
+    html.Div(children='DATA ENGINEERING AND PREDICTIVE ANALYTICS LABORATORY'),
     html.Div(children='FLOOD LEVEL INDICATOR'),
     dcc.Graph(id='graph'),
     dcc.Interval(
@@ -33,7 +36,7 @@ def update_graph(n):
     cur = con.cursor()
     print("Successfully Connected to SQlite")
 
-    cur.execute("SELECT * FROM vid_pixils order by id desc limit 500")
+    cur.execute("SELECT * FROM vid_pixils order by id desc limit 3000")
 
     rows = cur.fetchall()
     for row in rows:
