@@ -1,4 +1,3 @@
-from cgitb import small
 import sqlite3
 from dash import Dash, html, dcc, Input, Output
 import plotly.express as px
