@@ -6,7 +6,7 @@ import glob
 
 
 img1 = cv2.imread('.\\averaged\\averaged0.jpg')
-img2 = cv2.imread('.\\averaged\\averaged8000.jpg')
+img2 = cv2.imread('.\\averaged\\averaged15000.jpg')
 
 # diff = abs(img1 - img2)
 # diff = np.where(diff>100, 225, 0)
@@ -22,7 +22,7 @@ ret, th = cv2.threshold(sub, 70, 255, cv2.THRESH_BINARY)
 
 
 imga1 = cv2.imread('.\\averaged\\averaged0.jpg')
-imga2 = cv2.imread('.\\averaged\\averaged6000.jpg')
+imga2 = cv2.imread('.\\averaged\\averaged15000.jpg')
 cv2.imshow('output', th)
 cv2.imshow('image1', gray1)
 cv2.imshow('Image2', gray2)

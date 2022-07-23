@@ -8,7 +8,8 @@ import dash_bootstrap_components as dbc
 small_card = {
          'background-color': '#426793',
         'width': '100%',
-        'height':'20%'}
+        'height':'100%',
+        'display': 'inline-block'}
 
 big_card = dbc.CardBody(style={
          'background-color': '#426793',
@@ -39,6 +40,7 @@ print("Successfully Connected to SQlite")
 cur.execute("SELECT * FROM vid_pixils order by id desc limit 3000")
 
 rows = cur.fetchall()
+con.close()
 for row in rows:
     #print(row)
     dat = pd.DataFrame({
@@ -48,8 +50,10 @@ for row in rows:
     df = pd.concat([df, dat], axis=0)
     
 fig = px.line(df, x="frame_number", y='pixils')
-last = df.iloc[-1]
-con.close()
+try:
+    last = df.iloc[-1]
+except:
+    last = [0, 0]
 
 
 
@@ -74,8 +78,8 @@ app.layout = html.Div([
     html.Br(),
     html.Div([html.Br(),
             html.Div([
-                dbc.CardBody([html.H5('AVG. WATER VOLUME:'),
-                              html.H5(id = 'water_level',children="1214563")],style=small_card),
+                dbc.CardBody([html.H5('AVG. WATER VOL:'),
+                              html.H5(id = 'water_level',children="")],style=small_card),
                 dbc.CardBody([html.H5('LOCATION:'),
                               html.H5(id = 'location',children="ELLICOT CITY")],style=small_card),
                 dbc.CardBody([html.H5('TIME:'),
@@ -84,40 +88,63 @@ app.layout = html.Div([
                               html.H5('06/29/2022')],style=small_card)
                     ], style={
                         'background-color': 'black',
-                        'width': '22%',
+                        'width': '100%',
                         'height':'100%',
                         'display':'flex',
-                        'flex-direction':'column',
                         'justify-content':'space-between',
                         'padding':'0.5rem',
                         'gap': '0.5rem'
+
                         
                     }),
-            dbc.CardBody([
-                dcc.Graph(id ='graph', figure=fig,
-                style={
-                        # 'background-color': '#426793',
-                        'width': '96.5%',
-                        'height':'100%'
-                    }), 
+            # dbc.CardBody([
+            #     dcc.Graph(id ='graph', figure=fig,
+            #     style={
+            #             # 'background-color': '#426793',
+            #             'width': '96.5%',
+            #             'height':'100%'
+            #         }), 
+            #     dcc.Interval(
+            #     id='interval-component',
+            #     interval=1*1000, # in milliseconds
+            #     n_intervals=0)],
+            #             style={
+            #             'background-color': 'black',
+            #             'width': '75%',
+            #             'height':'100%'
+            # })
+
+                
+            ]),
+    html.Div(children = [
+         dbc.CardBody([
+                dcc.Graph(id ='graph'
+                # style={
+                #         # 'background-color': '#426793',
+                #         'width': '96.5%',
+                #         'height':'100%'  }
+                ), 
                 dcc.Interval(
                 id='interval-component',
                 interval=1*1000, # in milliseconds
-                n_intervals=0)],
+                n_intervals=0)
+                ],
                         style={
-                        'background-color': 'black',
-                        'width': '75%',
+                        'background-color': '#426793',
+                        'width': '50%',
                         'height':'100%'
-            })
+            }
+            )
 
-                
-            ], style={
-        'background-color': 'yellow',
-        'width': '100%',
-        'height':'33rem',
-        'display':'flex',
-        'align-items':'center'
-    }),
+    ], style={
+            'background-color': '#426793',
+            'width': '100%',
+            'height':'100%',
+            'display':'flex',
+            'justify-content':'space-between',
+            'padding':'0.5rem',
+            'gap': '0.5rem',
+        }),
     html.Footer([footer, footer],style={
         'background-color': 'black',
         'width': '100%',
@@ -161,33 +188,10 @@ def update_graph(n):
         df = pd.concat([df, dat], axis=0)
         
     fig = px.line(df, x="frame_number", y='pixils')
-    last = df.iloc[-1]
-    
-
-    # app.layout = html.Div(children=[
-    #     html.H1(children='Sample Dashboard'),
-
-    #     html.Div(children='''
-    #        FLOOD LEVEL INDICATOR
-    #     '''),
-
-    #         dcc.Graph(
-    #             id='graph',
-    #             figure=fig
-    #         ),
-    #     dcc.Interval(
-    #         id='interval-component',
-    #         interval=1*1000, # in milliseconds
-    #         n_intervals=0
-    #     )
-    # ])
-
-
-
-    
-
-    
-    
+    try:
+        last = df.iloc[-1]
+    except:
+        last = [0, 0]
 
     return (fig, last[1])
 

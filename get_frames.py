@@ -12,9 +12,11 @@ def get_frames(input_path, output_path):
         if ret:
             name = output_path + 'videosframe'+str(currentframe)+".png"
             print('Captured...' + name)
-            cv2.imwrite(name, frame)
+            if currentframe > 465560:
+
+                cv2.imwrite(name, frame)
               
-            if currentframe == 50000:
+            if currentframe == 465600:
                 break
             currentframe +=1
 
