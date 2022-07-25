@@ -30,30 +30,30 @@ data = {
     'frame_number': [],
     'pixils': []
 }
-df = pd.DataFrame(data)
-# 
-con = sqlite3.connect('C:\\Users\\daste19\\Desktop\\projects\\flood_pred\\database.db')
+# df = pd.DataFrame(data)
+# # 
+# con = sqlite3.connect('C:\\Users\\daste19\\Desktop\\projects\\flood_pred\\database.db')
 
-cur = con.cursor()
-print("Successfully Connected to SQlite")
+# cur = con.cursor()
+# print("Successfully Connected to SQlite")
 
-cur.execute("SELECT * FROM vid_pixils order by id desc limit 3000")
+# cur.execute("SELECT * FROM vid_pixils order by id desc limit 3000")
 
-rows = cur.fetchall()
-con.close()
-for row in rows:
-    #print(row)
-    dat = pd.DataFrame({
-        'frame_number': [row[1]],
-        'pixils':  [int(row[2])]
-        })
-    df = pd.concat([df, dat], axis=0)
+# rows = cur.fetchall()
+# con.close()
+# for row in rows:
+#     #print(row)
+#     dat = pd.DataFrame({
+#         'frame_number': [row[1]],
+#         'pixils':  [int(row[2])]
+#         })
+#     df = pd.concat([df, dat], axis=0)
     
-fig = px.line(df, x="frame_number", y='pixils')
-try:
-    last = df.iloc[-1]
-except:
-    last = [0, 0]
+# fig = px.line(df, x="frame_number", y='pixils')
+# try:
+#     last = df.iloc[-1]
+# except:
+#     last = [0, 0]
 
 
 
@@ -79,7 +79,7 @@ app.layout = html.Div([
     html.Div([html.Br(),
             html.Div([
                 dbc.CardBody([html.H5('AVG. WATER VOL:'),
-                              html.H5(id = 'water_level',children="")],style=small_card),
+                              html.H5(id = 'water_level')],style=small_card),
                 dbc.CardBody([html.H5('LOCATION:'),
                               html.H5(id = 'location',children="ELLICOT CITY")],style=small_card),
                 dbc.CardBody([html.H5('TIME:'),
@@ -160,7 +160,7 @@ app.layout = html.Div([
 })
 
 @app.callback([Output('graph', 'figure'),
-                Output('water_level', 'children') ],
+               Output('water_level', 'children') ],
               [Input('interval-component', 'n_intervals')])
 
 def update_graph(n):
@@ -185,7 +185,7 @@ def update_graph(n):
             'frame_number': [row[1]],
             'pixils':  [int(row[2])]
             })
-        df = pd.concat([df, dat], axis=0)
+        df = pd.concat([df, dat], axis=0).tail(300)
         
     fig = px.line(df, x="frame_number", y='pixils')
     try:
@@ -193,7 +193,7 @@ def update_graph(n):
     except:
         last = [0, 0]
 
-    return (fig, last[1])
+    return [fig, str(last[1])]
 
 
 

@@ -31,7 +31,7 @@ for image in images:
     # Save (commit) the changes
     con.commit()
     n+=1
-    time.sleep(0.01)
+    time.sleep(0.1)
 
 
 con.close()
