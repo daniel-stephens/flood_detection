@@ -16,7 +16,7 @@ n = 0
 for image in images:
     im = cv2.imread(image).astype(np.float16)
     diff = abs(initial_image - im)
-    diff = np.where(diff>85, 225, 0).astype(np.uint8)
+    diff = np.where(diff>99, 225, 0).astype(np.uint8)
     img = cv2.erode(diff, kernel1, iterations=2)
     img2 = cv2.dilate(img, kernel2, iterations=3)
 
